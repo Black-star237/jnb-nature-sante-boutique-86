@@ -16,7 +16,8 @@ export const useProducts = () => {
           categories (
             id,
             name,
-            description
+            description,
+            created_at
           )
         `)
         .eq('is_active', true)
