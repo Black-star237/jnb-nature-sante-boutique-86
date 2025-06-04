@@ -1,10 +1,31 @@
 
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId: string) => {
+    // Si on est sur la page d'accueil, scroll vers la section
+    if (window.location.pathname === '/') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Si on est sur une autre page, naviguer vers l'accueil puis scroll
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -24,12 +45,39 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link to="/#accueil" className="text-gray-700 hover:text-green-600 transition-colors">Accueil</Link>
-            <Link to="/#apropos" className="text-gray-700 hover:text-green-600 transition-colors">À propos</Link>
-            <Link to="/#specialites" className="text-gray-700 hover:text-green-600 transition-colors">Spécialités</Link>
-            <Link to="/#traitements" className="text-gray-700 hover:text-green-600 transition-colors">Traitements</Link>
-            <Link to="/boutique" className="text-gray-700 hover:text-green-600 transition-colors">Boutique</Link>
-            <Link to="/#contact" className="text-gray-700 hover:text-green-600 transition-colors">Contact</Link>
+            <button 
+              onClick={() => scrollToSection('accueil')} 
+              className="text-gray-700 hover:text-green-600 transition-colors cursor-pointer"
+            >
+              Accueil
+            </button>
+            <button 
+              onClick={() => scrollToSection('apropos')} 
+              className="text-gray-700 hover:text-green-600 transition-colors cursor-pointer"
+            >
+              À propos
+            </button>
+            <button 
+              onClick={() => scrollToSection('specialites')} 
+              className="text-gray-700 hover:text-green-600 transition-colors cursor-pointer"
+            >
+              Spécialités
+            </button>
+            <button 
+              onClick={() => scrollToSection('traitements')} 
+              className="text-gray-700 hover:text-green-600 transition-colors cursor-pointer"
+            >
+              Traitements
+            </button>
+            <Link to="/boutique" className="text-gray-700 hover:text-green-600 transition-colors">
+              Boutique
+            </Link>
+            <button 
+              onClick={() => scrollToSection('contact')} 
+              className="text-gray-700 hover:text-green-600 transition-colors cursor-pointer"
+            >
+              Contact
+            </button>
           </nav>
 
           {/* Contact Buttons */}
@@ -58,17 +106,49 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
-              <Link to="/#accueil" className="block px-3 py-2 text-gray-700 hover:text-green-600">Accueil</Link>
-              <Link to="/#apropos" className="block px-3 py-2 text-gray-700 hover:text-green-600">À propos</Link>
-              <Link to="/#specialites" className="block px-3 py-2 text-gray-700 hover:text-green-600">Spécialités</Link>
-              <Link to="/#traitements" className="block px-3 py-2 text-gray-700 hover:text-green-600">Traitements</Link>
-              <Link to="/boutique" className="block px-3 py-2 text-gray-700 hover:text-green-600">Boutique</Link>
-              <Link to="/#contact" className="block px-3 py-2 text-gray-700 hover:text-green-600">Contact</Link>
+              <button 
+                onClick={() => scrollToSection('accueil')} 
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-green-600"
+              >
+                Accueil
+              </button>
+              <button 
+                onClick={() => scrollToSection('apropos')} 
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-green-600"
+              >
+                À propos
+              </button>
+              <button 
+                onClick={() => scrollToSection('specialites')} 
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-green-600"
+              >
+                Spécialités
+              </button>
+              <button 
+                onClick={() => scrollToSection('traitements')} 
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-green-600"
+              >
+                Traitements
+              </button>
+              <Link 
+                to="/boutique" 
+                className="block px-3 py-2 text-gray-700 hover:text-green-600"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Boutique
+              </Link>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:text-green-600"
+              >
+                Contact
+              </button>
               <a 
                 href="https://wa.me/+237698677491" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block px-3 py-2 text-green-600 font-medium"
+                onClick={() => setIsMenuOpen(false)}
               >
                 📱 WhatsApp: 698 67 74 91
               </a>
