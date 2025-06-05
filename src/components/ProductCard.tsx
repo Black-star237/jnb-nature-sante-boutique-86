@@ -30,9 +30,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link to={`/produit/${product.id}`} className="block">
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer aspect-square flex flex-col">
-        {/* Image avec catégorie en overlay */}
-        <div className="relative flex-1 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer flex flex-col h-64 sm:h-72 md:h-80">
+        {/* Image avec catégorie en overlay - plus d'espace sur mobile */}
+        <div className="relative flex-1 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden min-h-0">
           {product.image_url ? (
             <img 
               src={product.image_url} 
@@ -40,38 +40,39 @@ const ProductCard = ({ product }: ProductCardProps) => {
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-6xl">
+            <div className="w-full h-full flex items-center justify-center text-4xl sm:text-5xl md:text-6xl">
               🌿
             </div>
           )}
           
           {/* Catégorie en overlay - coin supérieur droit */}
           {product.categories && (
-            <div className="absolute top-2 right-2">
-              <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-bl-lg rounded-tr-lg font-medium shadow-lg">
+            <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
+              <span className="bg-orange-500 text-white text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-bl-lg rounded-tr-lg font-medium shadow-lg">
                 {product.categories.name}
               </span>
             </div>
           )}
         </div>
         
-        {/* Contenu compact */}
-        <div className="p-4 flex flex-col justify-between flex-shrink-0">
-          <h3 className="text-sm font-semibold text-green-800 mb-2 line-clamp-2 leading-tight">
+        {/* Contenu compact - hauteur fixe pour éviter le débordement */}
+        <div className="p-2 sm:p-3 md:p-4 flex flex-col justify-between flex-shrink-0 h-20 sm:h-24">
+          <h3 className="text-xs sm:text-sm font-semibold text-green-800 mb-1 sm:mb-2 line-clamp-2 leading-tight">
             {product.name}
           </h3>
           
-          {/* Prix et bouton - optimisés pour une ligne */}
-          <div className="flex justify-between items-center gap-2">
-            <span className="text-lg font-bold text-orange-600 whitespace-nowrap">
+          {/* Prix et bouton - optimisés pour mobile */}
+          <div className="flex justify-between items-center gap-1 sm:gap-2">
+            <span className="text-sm sm:text-base md:text-lg font-bold text-orange-600 whitespace-nowrap flex-shrink-0">
               {formatPrice(product.price)} FCFA
             </span>
             <button 
               onClick={handleOrder}
-              className="bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-1 text-xs font-medium shadow-md hover:shadow-lg flex-shrink-0"
+              className="bg-green-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-1 text-xs font-medium shadow-md hover:shadow-lg flex-shrink-0"
             >
-              <ShoppingCart size={14} />
-              <span>Commander</span>
+              <ShoppingCart size={12} className="sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Commander</span>
+              <span className="sm:hidden">Cmd</span>
             </button>
           </div>
         </div>
