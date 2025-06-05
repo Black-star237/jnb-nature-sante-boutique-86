@@ -1,3 +1,4 @@
+
 import { Loader2, AlertCircle } from 'lucide-react';
 import { useProducts } from '@/hooks/useProducts';
 import ProductCard from '@/components/ProductCard';
@@ -19,7 +20,7 @@ const Shop = () => {
               backgroundImage: `url('https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2116&q=80')`
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-green-900/90 to-orange-900/90" />
+          <div className="absolute inset-0 bg-green-800/70" />
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16 animate-fade-in-up">
@@ -50,7 +51,7 @@ const Shop = () => {
               backgroundImage: `url('https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2116&q=80')`
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-red-900/90 to-orange-900/90" />
+          <div className="absolute inset-0 bg-red-800/70" />
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16 animate-fade-in-up">
@@ -82,7 +83,7 @@ const Shop = () => {
             backgroundImage: `url('https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2116&q=80')`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900/85 to-orange-900/85" />
+        <div className="absolute inset-0 bg-green-800/65" />
         
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

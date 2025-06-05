@@ -12,8 +12,8 @@ const Hero = () => {
         }}
       />
       
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 via-green-800/70 to-orange-800/80" />
+      {/* Overlay vert uni moins prononcé */}
+      <div className="absolute inset-0 bg-green-800/60" />
       
       {/* Floating particles animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

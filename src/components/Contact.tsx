@@ -11,7 +11,7 @@ const Contact = () => {
           backgroundImage: `url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2148&q=80')`
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900/95 via-green-800/90 to-green-600/95" />
+      <div className="absolute inset-0 bg-green-800/75" />
       
       {/* Animated particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

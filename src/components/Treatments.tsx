@@ -31,7 +31,7 @@ const Treatments = () => {
           backgroundImage: `url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80')`
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900/90 via-green-800/80 to-orange-800/90" />
+      <div className="absolute inset-0 bg-green-800/70" />
       
       {/* Floating elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
