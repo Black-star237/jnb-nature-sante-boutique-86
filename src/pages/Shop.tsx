@@ -120,7 +120,7 @@ const Shop = () => {
       <section className="py-20 bg-gradient-to-br from-green-50 to-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {products && products.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 mb-16">
               {products.map((product, index) => (
                 <div 
                   key={product.id} 

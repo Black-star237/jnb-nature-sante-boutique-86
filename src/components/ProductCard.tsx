@@ -30,8 +30,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link to={`/produit/${product.id}`} className="block">
-      <div className="bg-green-50 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
-        <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 relative overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer aspect-square flex flex-col">
+        {/* Image avec catégorie en overlay */}
+        <div className="relative flex-1 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden">
           {product.image_url ? (
             <img 
               src={product.image_url} 
@@ -43,37 +44,33 @@ const ProductCard = ({ product }: ProductCardProps) => {
               🌿
             </div>
           )}
-        </div>
-        
-        <div className="p-6">
-          <h3 className="text-xl font-semibold text-green-800 mb-3 line-clamp-2 hover:text-green-600 transition-colors">
-            {product.name}
-          </h3>
           
-          <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
-            {product.description}
-          </p>
-          
+          {/* Catégorie en overlay - coin supérieur droit */}
           {product.categories && (
-            <div className="mb-4">
-              <span className="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">
+            <div className="absolute top-2 right-2">
+              <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-bl-lg rounded-tr-lg font-medium shadow-lg">
                 {product.categories.name}
               </span>
             </div>
           )}
+        </div>
+        
+        {/* Contenu compact */}
+        <div className="p-4 flex flex-col justify-between flex-shrink-0">
+          <h3 className="text-sm font-semibold text-green-800 mb-2 line-clamp-2 leading-tight">
+            {product.name}
+          </h3>
           
-          {/* Prix et bouton sur une seule ligne */}
-          <div className="flex justify-between items-center gap-3">
-            <div className="flex-1">
-              <span className="text-xl font-bold text-orange-600 block">
-                {formatPrice(product.price)} FCFA
-              </span>
-            </div>
+          {/* Prix et bouton - optimisés pour une ligne */}
+          <div className="flex justify-between items-center gap-2">
+            <span className="text-lg font-bold text-orange-600 whitespace-nowrap">
+              {formatPrice(product.price)} FCFA
+            </span>
             <button 
               onClick={handleOrder}
-              className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-1 text-sm whitespace-nowrap flex-shrink-0"
+              className="bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-1 text-xs font-medium shadow-md hover:shadow-lg flex-shrink-0"
             >
-              <ShoppingCart size={16} />
+              <ShoppingCart size={14} />
               <span>Commander</span>
             </button>
           </div>
