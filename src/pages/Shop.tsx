@@ -1,4 +1,3 @@
-
 import { Loader2, AlertCircle } from 'lucide-react';
 import { useProducts } from '@/hooks/useProducts';
 import ProductCard from '@/components/ProductCard';
@@ -120,7 +119,7 @@ const Shop = () => {
       <section className="py-20 bg-gradient-to-br from-green-50 to-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {products && products.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
               {products.map((product, index) => (
                 <div 
                   key={product.id} 
@@ -136,6 +135,7 @@ const Shop = () => {
             </div>
           )}
 
+          {/* Commande Personnalisée section */}
           <div className="mt-16 animate-fade-in-up animation-delay-1000">
             <div className="bg-gradient-to-r from-green-600 to-orange-600 text-white p-10 rounded-3xl text-center shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 relative overflow-hidden">
               {/* Background pattern */}
