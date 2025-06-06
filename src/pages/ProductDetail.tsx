@@ -6,7 +6,6 @@ import { supabase } from '@/integrations/supabase/client';
 import type { Product } from '@/types/shop';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ProductImageCarousel from '@/components/ProductImageCarousel';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,23 +59,6 @@ const ProductDetail = () => {
     window.open(whatsappUrl, '_blank');
   };
 
-  // Fonction pour obtenir toutes les images du produit
-  const getProductImages = (product: Product): string[] => {
-    const images: string[] = [];
-    
-    // Ajouter l'image principale si elle existe
-    if (product.image_url) {
-      images.push(product.image_url);
-    }
-    
-    // Ajouter les images supplémentaires si elles existent
-    if (product.images && product.images.length > 0) {
-      images.push(...product.images);
-    }
-    
-    return images;
-  };
-
   if (isLoading) {
     return (
       <div className="min-h-screen">
@@ -108,8 +90,6 @@ const ProductDetail = () => {
     );
   }
 
-  const productImages = getProductImages(product);
-
   return (
     <div className="min-h-screen">
       <Header />
@@ -128,12 +108,21 @@ const ProductDetail = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Carrousel d'images du produit */}
+            {/* Image du produit */}
             <div className="space-y-4">
-              <ProductImageCarousel 
-                images={productImages}
-                productName={product.name}
-              />
+              <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden shadow-lg">
+                {product.image_url ? (
+                  <img 
+                    src={product.image_url} 
+                    alt={product.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-8xl">
+                    🌿
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Informations du produit */}

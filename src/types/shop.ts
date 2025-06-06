@@ -12,7 +12,6 @@ export interface Product {
   description: string | null;
   price: number;
   image_url: string | null;
-  images?: string[]; // Support pour plusieurs images
   category_id: string | null;
   is_active: boolean;
   created_at: string;
