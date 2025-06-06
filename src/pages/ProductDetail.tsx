@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import type { Product } from '@/types/shop';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ProductImageCarousel from '@/components/ProductImageCarousel';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,6 +35,16 @@ const ProductDetail = () => {
       if (error) {
         console.error('Error fetching product:', error);
         throw new Error('Erreur lors du chargement du produit');
+      }
+
+      // Préparer les images pour le carrousel
+      if (data) {
+        const images = [];
+        if (data.image_url) images.push(data.image_url);
+        if (data.image_urls && Array.isArray(data.image_urls)) {
+          images.push(...data.image_urls);
+        }
+        data.image_urls = images;
       }
 
       return data;
@@ -108,22 +119,11 @@ const ProductDetail = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Image du produit */}
-            <div className="space-y-4">
-              <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden shadow-lg">
-                {product.image_url ? (
-                  <img 
-                    src={product.image_url} 
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-8xl">
-                    🌿
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* Carrousel d'images du produit */}
+            <ProductImageCarousel 
+              images={product.image_urls || []} 
+              productName={product.name}
+            />
 
             {/* Informations du produit */}
             <div className="space-y-6">
