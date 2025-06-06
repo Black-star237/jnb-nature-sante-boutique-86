@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Leaf, Shield, Clock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -41,10 +40,21 @@ const ProductDetail = () => {
       if (data) {
         const images = [];
         if (data.image_url) images.push(data.image_url);
-        if (data.image_urls && Array.isArray(data.image_urls)) {
-          images.push(...data.image_urls);
+        
+        // Simuler des images supplémentaires pour la démo
+        // En production, ces images viendraient de la base de données
+        if (data.image_url) {
+          images.push(
+            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=500&fit=crop",
+            "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=500&fit=crop",
+            "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&h=500&fit=crop"
+          );
         }
-        data.image_urls = images;
+        
+        return {
+          ...data,
+          image_urls: images
+        };
       }
 
       return data;

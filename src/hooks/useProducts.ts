@@ -29,7 +29,14 @@ export const useProducts = () => {
       }
 
       console.log('Products fetched successfully:', data);
-      return data || [];
+      
+      // Transformer les données pour ajouter image_urls basé sur l'image_url existante
+      const transformedData = data?.map(product => ({
+        ...product,
+        image_urls: product.image_url ? [product.image_url] : []
+      })) || [];
+
+      return transformedData;
     },
   });
 };
