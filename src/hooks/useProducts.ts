@@ -30,11 +30,25 @@ export const useProducts = () => {
 
       console.log('Products fetched successfully:', data);
       
-      // Transformer les données pour ajouter image_urls basé sur l'image_url existante
-      const transformedData = data?.map(product => ({
-        ...product,
-        image_urls: product.image_url ? [product.image_url] : []
-      })) || [];
+      // Transformer les données pour créer le tableau image_urls avec les vraies images
+      const transformedData = data?.map(product => {
+        const images = [];
+        
+        // Ajouter l'image principale si elle existe
+        if (product.image_url) {
+          images.push(product.image_url);
+        }
+        
+        // Ajouter les images supplémentaires depuis la colonne JSONB si elles existent
+        if (product.additional_images && Array.isArray(product.additional_images)) {
+          images.push(...product.additional_images);
+        }
+        
+        return {
+          ...product,
+          image_urls: images
+        };
+      }) || [];
 
       return transformedData;
     },

@@ -36,19 +36,18 @@ const ProductDetail = () => {
         throw new Error('Erreur lors du chargement du produit');
       }
 
-      // Préparer les images pour le carrousel
+      // Créer le tableau d'images avec les vraies données de la base
       if (data) {
         const images = [];
-        if (data.image_url) images.push(data.image_url);
         
-        // Simuler des images supplémentaires pour la démo
-        // En production, ces images viendraient de la base de données
+        // Ajouter l'image principale si elle existe
         if (data.image_url) {
-          images.push(
-            "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=500&fit=crop",
-            "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=500&fit=crop",
-            "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&h=500&fit=crop"
-          );
+          images.push(data.image_url);
+        }
+        
+        // Ajouter les images supplémentaires depuis la colonne JSONB si elles existent
+        if (data.additional_images && Array.isArray(data.additional_images)) {
+          images.push(...data.additional_images);
         }
         
         return {
