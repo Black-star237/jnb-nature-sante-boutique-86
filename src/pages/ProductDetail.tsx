@@ -36,7 +36,7 @@ const ProductDetail = () => {
         throw new Error('Erreur lors du chargement du produit');
       }
 
-      // Créer le tableau d'images avec les vraies données de la base
+      // Créer le tableau d'images avec les données disponibles
       if (data) {
         const images = [];
         
@@ -45,10 +45,12 @@ const ProductDetail = () => {
           images.push(data.image_url);
         }
         
-        // Ajouter les images supplémentaires depuis la colonne JSONB si elles existent
-        if (data.additional_images && Array.isArray(data.additional_images)) {
-          images.push(...data.additional_images);
-        }
+        // Pour le moment, nous n'avons que l'image principale
+        // Quand la colonne additional_images sera ajoutée à la base de données,
+        // nous pourrons décommenter et adapter le code suivant :
+        // if (data.additional_images && Array.isArray(data.additional_images)) {
+        //   images.push(...data.additional_images);
+        // }
         
         return {
           ...data,
