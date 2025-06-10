@@ -4,15 +4,23 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ProductImageCarouselProps {
-  images: string[];
+  mainImage: string | null;
+  galleryImages: string[];
   productName: string;
 }
 
-const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps) => {
+const ProductImageCarousel = ({ mainImage, galleryImages, productName }: ProductImageCarouselProps) => {
+  // Créer un tableau avec l'image principale en premier, puis les images de la galerie
+  const allImages = [];
+  if (mainImage) {
+    allImages.push(mainImage);
+  }
+  allImages.push(...galleryImages);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Si pas d'images, afficher l'emoji par défaut
-  if (!images || images.length === 0) {
+  if (allImages.length === 0) {
     return (
       <div className="space-y-4">
         <div className="aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden shadow-lg">
@@ -26,13 +34,13 @@ const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? allImages.length - 1 : prevIndex - 1
     );
   };
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) => 
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === allImages.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -45,13 +53,13 @@ const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps
       {/* Image principale */}
       <div className="relative aspect-square bg-gradient-to-br from-green-100 to-green-200 rounded-2xl overflow-hidden shadow-lg group">
         <img 
-          src={images[currentIndex]} 
+          src={allImages[currentIndex]} 
           alt={`${productName} - Image ${currentIndex + 1}`}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
         />
         
         {/* Boutons de navigation - affichés seulement s'il y a plus d'une image */}
-        {images.length > 1 && (
+        {allImages.length > 1 && (
           <>
             <button
               onClick={goToPrevious}
@@ -69,9 +77,9 @@ const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps
         )}
         
         {/* Indicateurs de position */}
-        {images.length > 1 && (
+        {allImages.length > 1 && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-            {images.map((_, index) => (
+            {allImages.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
@@ -88,9 +96,9 @@ const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps
       </div>
 
       {/* Miniatures - affichées seulement s'il y a plus d'une image */}
-      {images.length > 1 && (
+      {allImages.length > 1 && (
         <div className="grid grid-cols-4 gap-2">
-          {images.slice(0, 4).map((image, index) => (
+          {allImages.slice(0, 4).map((image, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
@@ -108,9 +116,9 @@ const ProductImageCarousel = ({ images, productName }: ProductImageCarouselProps
               />
             </button>
           ))}
-          {images.length > 4 && (
+          {allImages.length > 4 && (
             <div className="aspect-square rounded-lg bg-gray-100 border-2 border-gray-200 flex items-center justify-center text-gray-500 text-sm font-medium">
-              +{images.length - 4}
+              +{allImages.length - 4}
             </div>
           )}
         </div>

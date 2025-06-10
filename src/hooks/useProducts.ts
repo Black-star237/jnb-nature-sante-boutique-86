@@ -30,25 +30,18 @@ export const useProducts = () => {
 
       console.log('Products fetched successfully:', data);
       
-      // Transformer les données pour créer le tableau image_urls
+      // Transformer les données pour nettoyer le champ images
       const transformedData = data?.map(product => {
-        const images = [];
+        let galleryImages: string[] = [];
         
-        // Utiliser le champ images (JSONB) s'il existe et contient des données
-        if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-          // Vérifier que chaque élément est bien une string
-          const validImages = product.images.filter(img => typeof img === 'string');
-          images.push(...validImages);
-        }
-        // Sinon, utiliser l'image principale comme fallback
-        else if (product.image_url) {
-          images.push(product.image_url);
+        // Traiter le champ images (JSONB) pour la galerie
+        if (product.images && Array.isArray(product.images)) {
+          galleryImages = product.images.filter(img => typeof img === 'string');
         }
         
         return {
           ...product,
-          images: Array.isArray(product.images) ? product.images.filter(img => typeof img === 'string') : [],
-          image_urls: images
+          images: galleryImages
         };
       }) || [];
 

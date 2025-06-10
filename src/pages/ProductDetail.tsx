@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Leaf, Shield, Clock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -37,25 +36,18 @@ const ProductDetail = () => {
         throw new Error('Erreur lors du chargement du produit');
       }
 
-      // Créer le tableau d'images avec les données disponibles
+      // Traiter les données du produit
       if (data) {
-        const images = [];
+        let galleryImages: string[] = [];
         
-        // Utiliser le champ images (JSONB) s'il existe et contient des données
-        if (data.images && Array.isArray(data.images) && data.images.length > 0) {
-          // Vérifier que chaque élément est bien une string
-          const validImages = data.images.filter(img => typeof img === 'string');
-          images.push(...validImages);
-        }
-        // Sinon, utiliser l'image principale comme fallback
-        else if (data.image_url) {
-          images.push(data.image_url);
+        // Traiter le champ images (JSONB) pour la galerie
+        if (data.images && Array.isArray(data.images)) {
+          galleryImages = data.images.filter(img => typeof img === 'string');
         }
         
         return {
           ...data,
-          images: Array.isArray(data.images) ? data.images.filter(img => typeof img === 'string') : [],
-          image_urls: images
+          images: galleryImages
         };
       }
 
@@ -133,7 +125,8 @@ const ProductDetail = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Carrousel d'images du produit */}
             <ProductImageCarousel 
-              images={product.image_urls || []} 
+              mainImage={product.image_url}
+              galleryImages={product.images || []} 
               productName={product.name}
             />
 

@@ -12,8 +12,7 @@ export interface Product {
   description: string | null;
   price: number;
   image_url: string | null;
-  images: string[] | null; // Tableau d'URLs d'images depuis la colonne JSONB
-  image_urls?: string[]; // Tableau final des images pour l'affichage
+  images: string[] | null; // Tableau d'URLs d'images depuis la colonne JSONB pour la galerie
   category_id: string | null;
   is_active: boolean;
   created_at: string;
