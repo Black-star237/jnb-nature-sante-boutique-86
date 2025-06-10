@@ -40,20 +40,18 @@ const ProductDetail = () => {
       if (data) {
         const images = [];
         
-        // Ajouter l'image principale si elle existe
-        if (data.image_url) {
+        // Utiliser le champ images (JSONB) s'il existe et contient des données
+        if (data.images && Array.isArray(data.images) && data.images.length > 0) {
+          images.push(...data.images);
+        }
+        // Sinon, utiliser l'image principale comme fallback
+        else if (data.image_url) {
           images.push(data.image_url);
         }
         
-        // Pour le moment, nous n'avons que l'image principale
-        // Quand la colonne additional_images sera ajoutée à la base de données,
-        // nous pourrons décommenter et adapter le code suivant :
-        // if (data.additional_images && Array.isArray(data.additional_images)) {
-        //   images.push(...data.additional_images);
-        // }
-        
         return {
           ...data,
+          images: data.images || [],
           image_urls: images
         };
       }

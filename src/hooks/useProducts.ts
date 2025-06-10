@@ -34,20 +34,18 @@ export const useProducts = () => {
       const transformedData = data?.map(product => {
         const images = [];
         
-        // Ajouter l'image principale si elle existe
-        if (product.image_url) {
+        // Utiliser le champ images (JSONB) s'il existe et contient des données
+        if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+          images.push(...product.images);
+        }
+        // Sinon, utiliser l'image principale comme fallback
+        else if (product.image_url) {
           images.push(product.image_url);
         }
         
-        // Pour le moment, nous n'avons que l'image principale
-        // Quand la colonne additional_images sera ajoutée à la base de données,
-        // nous pourrons décommenter et adapter le code suivant :
-        // if (product.additional_images && Array.isArray(product.additional_images)) {
-        //   images.push(...product.additional_images);
-        // }
-        
         return {
           ...product,
+          images: product.images || [],
           image_urls: images
         };
       }) || [];
