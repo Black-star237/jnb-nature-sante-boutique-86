@@ -36,7 +36,7 @@ const ProductDetail = () => {
         throw new Error('Erreur lors du chargement du produit');
       }
 
-      // Traiter les données du produit
+      // Traiter les données du produit et s'assurer de la compatibilité des types
       if (data) {
         let galleryImages: string[] = [];
         
@@ -45,13 +45,25 @@ const ProductDetail = () => {
           galleryImages = data.images.filter(img => typeof img === 'string') as string[];
         }
         
-        return {
-          ...data,
-          images: galleryImages
-        } as Product;
+        // Retourner un objet Product correctement typé
+        const product: Product = {
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          image_url: data.image_url,
+          images: galleryImages,
+          category_id: data.category_id,
+          is_active: data.is_active,
+          created_at: data.created_at,
+          updated_at: data.updated_at,
+          categories: data.categories
+        };
+        
+        return product;
       }
 
-      return data;
+      return null;
     },
   });
 
