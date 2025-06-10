@@ -36,7 +36,9 @@ export const useProducts = () => {
         
         // Utiliser le champ images (JSONB) s'il existe et contient des données
         if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-          images.push(...product.images);
+          // Vérifier que chaque élément est bien une string
+          const validImages = product.images.filter(img => typeof img === 'string');
+          images.push(...validImages);
         }
         // Sinon, utiliser l'image principale comme fallback
         else if (product.image_url) {
@@ -45,7 +47,7 @@ export const useProducts = () => {
         
         return {
           ...product,
-          images: product.images || [],
+          images: Array.isArray(product.images) ? product.images.filter(img => typeof img === 'string') : [],
           image_urls: images
         };
       }) || [];

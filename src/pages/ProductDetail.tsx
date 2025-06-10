@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Leaf, Shield, Clock } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -42,7 +43,9 @@ const ProductDetail = () => {
         
         // Utiliser le champ images (JSONB) s'il existe et contient des données
         if (data.images && Array.isArray(data.images) && data.images.length > 0) {
-          images.push(...data.images);
+          // Vérifier que chaque élément est bien une string
+          const validImages = data.images.filter(img => typeof img === 'string');
+          images.push(...validImages);
         }
         // Sinon, utiliser l'image principale comme fallback
         else if (data.image_url) {
@@ -51,7 +54,7 @@ const ProductDetail = () => {
         
         return {
           ...data,
-          images: data.images || [],
+          images: Array.isArray(data.images) ? data.images.filter(img => typeof img === 'string') : [],
           image_urls: images
         };
       }
