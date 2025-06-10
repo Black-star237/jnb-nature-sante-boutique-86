@@ -42,13 +42,13 @@ const ProductDetail = () => {
         
         // Traiter le champ images (JSONB) pour la galerie
         if (data.images && Array.isArray(data.images)) {
-          galleryImages = data.images.filter(img => typeof img === 'string');
+          galleryImages = data.images.filter(img => typeof img === 'string') as string[];
         }
         
         return {
           ...data,
           images: galleryImages
-        };
+        } as Product;
       }
 
       return data;
